@@ -2,13 +2,26 @@ package com.jspider.spring_boot_crud_with_mysql.dto;
 
 import java.util.Objects;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+
 public class EmployeeDto {
 
 	private int id;
+
+	@NotBlank(message = "Name cannot be blank")
 	private String name;
+
+	@Email(message = "Invalid email format")
 	private String email;
+
+	@NotBlank(message = "Password cannot be blank")
 	private String password;
+
 	private String department;
+
+	@Positive(message = "Salary must be positive")
 	private double salary;
 
 	public int getId() {

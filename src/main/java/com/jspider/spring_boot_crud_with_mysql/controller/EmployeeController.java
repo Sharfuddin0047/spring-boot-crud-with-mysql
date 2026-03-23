@@ -20,6 +20,8 @@ import com.jspider.spring_boot_crud_with_mysql.entity.Employee;
 import com.jspider.spring_boot_crud_with_mysql.request_response.EmployeeRequestResponse;
 import com.jspider.spring_boot_crud_with_mysql.service.EmployeeService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value= "/employee")
 public class EmployeeController {
@@ -36,7 +38,7 @@ public class EmployeeController {
 	
 	
 	@PostMapping(value = "/saveEmployee")
-	public EmployeeDto saveEmployeeController(@RequestBody EmployeeDto employeeDto) {
+	public EmployeeDto saveEmployeeController(@RequestBody @Valid EmployeeDto employeeDto) {
 		
 		Employee emp = employeeService.saveEmployeeService(EmployeeRequestResponse.convertToEmployee(employeeDto));
 		
@@ -44,7 +46,7 @@ public class EmployeeController {
 	}
 	
 	@PostMapping(value = "/saveAllEmployee")
-	public List<EmployeeDto> saveAllEmployeeController(@RequestBody List<EmployeeDto> employeeDto) {
+	public List<EmployeeDto> saveAllEmployeeController(@RequestBody @Valid List<EmployeeDto> employeeDto) {
 		
 		List<Employee> employees = new ArrayList<>();
 		
@@ -66,7 +68,15 @@ public class EmployeeController {
 	@GetMapping(value = "/getEmpById/{id}")
 	public ResponseEntity<?> getEmployeeByIdController(@PathVariable Integer id) {
 		
-		return null;
+		Employee employee = employeeService.getEmployeeByIdService(id);
+		
+		if (employee != null) {
+	        return ResponseEntity.ok(employee);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	                             .body("User not found");
+	    }
+
 	}
 	
 	@DeleteMapping(value = "/deleteEmpById/{id}")

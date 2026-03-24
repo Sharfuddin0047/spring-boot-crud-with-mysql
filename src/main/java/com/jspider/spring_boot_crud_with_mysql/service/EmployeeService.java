@@ -32,6 +32,12 @@ public class EmployeeService {
 
 	public Employee getEmployeeByIdService(Integer id) {
 		
-		return employeeRepository.existsById(id) ? employeeRepository.findById(id).get() : null;
+		if (employeeRepository.existsById(id)) {
+		    return employeeRepository.findById(id).get();
+		} else {
+		    throw new RuntimeException("Employee not found");
+		}
+
+
 	}
 }

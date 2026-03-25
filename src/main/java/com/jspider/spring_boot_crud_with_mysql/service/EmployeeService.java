@@ -1,6 +1,7 @@
 package com.jspider.spring_boot_crud_with_mysql.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,17 +44,37 @@ public class EmployeeService {
 		}
 
 	}
-	
-	
+
 	public Page<Employee> getEmployeePageNumberService(int pageNumber) {
 		return employeeRepository.findAll(PageRequest.of(pageNumber, 3));
 	}
-	
+
 	public List<Employee> sortEmployeeAsc(String attributeName) {
 		return employeeRepository.findAll(Sort.by(Direction.ASC, attributeName));
 	}
-	
+
 	public List<Employee> sortEmployeeDesc(String attributeName) {
 		return employeeRepository.findAll(Sort.by(Direction.DESC, attributeName));
 	}
+
+	public List<Employee> getEmployeesBySalary(double salary) {
+		return employeeRepository.findBySalary(salary);
+	}
+
+	public Optional<Employee> getEmployeeByEmail(String email) {
+		return employeeRepository.findByEmail(email);
+	}
+
+	public boolean deleteEmployeeByEmailService(String email) {
+
+		Optional<Employee> optional = employeeRepository.findByEmail(email);
+
+		if (optional.isPresent()) {
+			employeeRepository.deletByEmail(email);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

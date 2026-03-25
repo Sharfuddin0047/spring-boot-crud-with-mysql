@@ -3,6 +3,7 @@ package com.jspider.spring_boot_crud_with_mysql.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -112,5 +113,24 @@ public class EmployeeController {
 	public List<Employee> sortEmployeeDesc(@PathVariable String attributeName) {
 		return employeeService.sortEmployeeDesc(attributeName);
 	}
+	
+	@GetMapping(value = "/getEmployeesBySalary/{salary}")
+	public ResponseEntity<List<Employee>> getEmployeesBySalary(@PathVariable double salary) {
+	    List<Employee> employees = employeeService.getEmployeesBySalary(salary);
+	    return ResponseEntity.ok(employees);
+	}
+	
+	@GetMapping("/getEmployeeByEmail/{email}")
+	public ResponseEntity<Optional<Employee>> getEmployeeByEmail(@PathVariable String email) {
+	    Optional<Employee> employee = employeeService.getEmployeeByEmail(email);
+	    return ResponseEntity.ok(employee);
+	}
+	
+	@DeleteMapping(value = "/deleteEmployeeByEmail/{email}")
+	public boolean deleteEmployeeByEmailController(@PathVariable String email) {
+		return employeeService.deleteEmployeeByEmailService(email);
+	}
 }
+
+
 

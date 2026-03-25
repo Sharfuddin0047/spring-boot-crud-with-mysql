@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -90,5 +92,10 @@ public class EmployeeController {
 	                             .body("Employee not found with id " + id);
 	    }
 
+	}
+	
+	@GetMapping(value = "/getEmpByPageNumber/{pageNumber}")
+	public Page<Employee> getEmployeePageNumberController(@PathVariable int pageNumber) {
+		return employeeService.getEmployeePageNumberService(pageNumber);
 	}
 }

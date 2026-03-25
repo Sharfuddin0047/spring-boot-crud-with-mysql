@@ -3,6 +3,8 @@ package com.jspider.spring_boot_crud_with_mysql.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.jspider.spring_boot_crud_with_mysql.entity.Employee;
@@ -31,13 +33,17 @@ public class EmployeeService {
 	}
 
 	public Employee getEmployeeByIdService(Integer id) {
-		
+
 		if (employeeRepository.existsById(id)) {
-		    return employeeRepository.findById(id).get();
+			return employeeRepository.findById(id).get();
 		} else {
-		    throw new RuntimeException("Employee not found");
+			throw new RuntimeException("Employee not found");
 		}
 
-
+	}
+	
+	
+	public Page<Employee> getEmployeePageNumberService(int pageNumber) {
+		return employeeRepository.findAll(PageRequest.of(pageNumber, 3));
 	}
 }

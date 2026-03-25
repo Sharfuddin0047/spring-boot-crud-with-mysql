@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -98,4 +100,17 @@ public class EmployeeController {
 	public Page<Employee> getEmployeePageNumberController(@PathVariable int pageNumber) {
 		return employeeService.getEmployeePageNumberService(pageNumber);
 	}
+	
+	
+	@GetMapping(value = "/sortEmployeeAsc/{attributeName}")
+	public List<Employee> sortEmployeeAsc(@PathVariable String attributeName) {
+		return employeeService.sortEmployeeAsc(attributeName);
+	}
+	
+	
+	@GetMapping(value = "/sortEmployeeDesc/{attributeName}")
+	public List<Employee> sortEmployeeDesc(@PathVariable String attributeName) {
+		return employeeService.sortEmployeeDesc(attributeName);
+	}
 }
+

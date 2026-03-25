@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.jspider.spring_boot_crud_with_mysql.entity.Employee;
@@ -45,5 +47,13 @@ public class EmployeeService {
 	
 	public Page<Employee> getEmployeePageNumberService(int pageNumber) {
 		return employeeRepository.findAll(PageRequest.of(pageNumber, 3));
+	}
+	
+	public List<Employee> sortEmployeeAsc(String attributeName) {
+		return employeeRepository.findAll(Sort.by(Direction.ASC, attributeName));
+	}
+	
+	public List<Employee> sortEmployeeDesc(String attributeName) {
+		return employeeRepository.findAll(Sort.by(Direction.DESC, attributeName));
 	}
 }

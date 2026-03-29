@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: spring-boot-a5
+      MYSQL_ROOT_PASSWORD: "Sharfu@8826"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - spring_app
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$MYSQL_ROOT_PASSWORD || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+  springboot-app:
+    build: .
+    container_name: spring-boot-crud-with-mysql
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - spring_app
+    environment:
+      APP_NAME: spring-boot-crud-with-mysql
+      DB_URL: jdbc:mysql://mysql:3306/spring-boot-a5
+      DB_USERNAME: root
+      DB_PASSWORD: Sharfu@8826
+      SERVER_PORT: 8183
+    ports:
+      - "8183:8183"
+
+volumes:
+  mysql_data:
+
+networks:
+  spring_app:
+    driver: bridge

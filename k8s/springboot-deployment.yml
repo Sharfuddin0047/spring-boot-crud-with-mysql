@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: springboot-app
+  namespace: spring-app-ns
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: springboot
+
+  template:
+    metadata:
+      labels:
+        app: springboot
+
+    spec:
+      containers:
+      - name: springboot
+
+        image: sharfuddin47/spring-boot-crud-with-mysql:latest
+
+        ports:
+        - containerPort: 8183
+
+        env:
+        - name: APP_NAME
+          value: spring-boot-crud-with-mysql
+
+        - name: DB_URL
+          value: jdbc:mysql://mysql:3306/spring-boot-a5
+
+        - name: DB_USERNAME
+          value: root
+
+        - name: DB_PASSWORD
+          value: "Sharfu@8826"
+
+        - name: SERVER_PORT
+          value: "8183"

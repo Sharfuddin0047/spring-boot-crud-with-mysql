@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: springboot-config
+  namespace: spring-app-ns
+data:
+  MYSQL_DATABASE: spring-boot-a5
+  APP_NAME: spring-boot-crud-with-mysql
+  DB_URL: jdbc:mysql://mysql:3306/spring-boot-a5
+  SERVER_PORT: "8183"

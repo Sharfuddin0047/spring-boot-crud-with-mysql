@@ -28,16 +28,31 @@ spec:
 
         env:
         - name: APP_NAME
-          value: spring-boot-crud-with-mysql
+          valueFrom:
+            configMapKeyRef:
+              name: springboot-config
+              key: APP_NAME
 
         - name: DB_URL
-          value: jdbc:mysql://mysql:3306/spring-boot-a5
+          valueFrom:
+            configMapKeyRef:
+              name: springboot-config
+              key: DB_URL
 
         - name: DB_USERNAME
-          value: root
+          valueFrom:
+            secretKeyRef:
+              name: springoot-secret
+              key: DB_USERNAME
 
         - name: DB_PASSWORD
-          value: "Sharfu@8826"
+          valueFrom:
+            secretKeyRef:
+              name: springoot-secret
+              key: DB_PASSWORD
 
         - name: SERVER_PORT
-          value: "8183"
+          valueFrom:
+            configMapKeyRef:
+              name: springboot-config
+              key: SERVER_PORT

@@ -27,10 +27,16 @@ spec:
 
         env:
         - name: MYSQL_DATABASE
-          value: spring-boot-a5
+          valueFrom:
+            configMapKeyRef:
+              name: springboot-config
+              key: MYSQL_DATABASE
 
         - name: MYSQL_ROOT_PASSWORD
-          value: "Sharfu@8826"
+          valueFrom:
+            secretKeyRef:
+              name: springoot-secret
+              key: MYSQL_ROOT_PASSWORD
 
         volumeMounts:
         - name: mysql-storage

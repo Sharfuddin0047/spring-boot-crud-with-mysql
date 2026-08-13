@@ -19,40 +19,47 @@ spec:
 
     spec:
       containers:
-      - name: springboot
+        - name: springboot
+          image: sharfuddin47/spring-boot-crud-with-mysql:latest
 
-        image: sharfuddin47/spring-boot-crud-with-mysql:latest
+          ports:
+            - containerPort: 8183
 
-        ports:
-        - containerPort: 8183
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "768Mi"
+            limits:
+              cpu: "2"
+              memory: "2Gi"
 
-        env:
-        - name: APP_NAME
-          valueFrom:
-            configMapKeyRef:
-              name: springboot-config
-              key: APP_NAME
+          env:
+            - name: APP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: springboot-config
+                  key: APP_NAME
 
-        - name: DB_URL
-          valueFrom:
-            configMapKeyRef:
-              name: springboot-config
-              key: DB_URL
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: springboot-config
+                  key: DB_URL
 
-        - name: DB_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: springoot-secret
-              key: DB_USERNAME
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: springoot-secret
+                  key: DB_USERNAME
 
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: springoot-secret
-              key: DB_PASSWORD
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: springoot-secret
+                  key: DB_PASSWORD
 
-        - name: SERVER_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: springboot-config
-              key: SERVER_PORT
+            - name: SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: springboot-config
+                  key: SERVER_PORT
